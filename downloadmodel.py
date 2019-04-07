@@ -9,6 +9,11 @@ cli_auth = AzureCliAuthentication()
 # Get workspace
 ws = Workspace.from_config(auth=cli_auth)
 
-model=Model(ws, 'MyModel')
+model = Model(ws, 'MyModel')
 
-model.download(target_dir=".", exist_ok=True)
+print(model.name)
+print(os.getcwd())
+
+result = model.download(target_dir=os.getcwd(), exist_ok=True)
+
+print(result)
