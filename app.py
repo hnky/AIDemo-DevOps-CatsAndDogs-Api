@@ -61,6 +61,31 @@ class CatOrDogApi(Resource):
         except AssertionError as error:
             print(error)  
 
+    def post(self):
+        global loaded_model
+        try:
+            url = request.get_json()['url']
+            urllib.request.urlretrieve(url, filename="tmp.jpg")
+
+            image_data = cv2.imread("tmp.jpg", cv2.IMREAD_GRAYSCALE)
+            image_data = cv2.resize(image_data,(96,96))
+            image_data = image_data/255
+
+            data1=[]
+            data1.append(image_data)
+            data1 = np.array(data1)
+            data1 = data1.reshape((data1.shape)[0],(data1.shape)[1],(data1.shape)[2],1)    
+
+            predicted_labels = loaded_model.predict(data1)
+
+            labels=['dog' if value>0.5 else 'cat' for value in predicted_labels]
+
+            os.remove("tmp.jpg")
+
+            return json.dumps(labels)
+        except AssertionError as error:
+            print(error)  
+
 api.add_resource(CatOrDogApi, '/')
 
 if __name__ == '__main__':
