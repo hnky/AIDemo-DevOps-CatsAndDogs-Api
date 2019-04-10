@@ -9,7 +9,7 @@ cli_auth = AzureCliAuthentication()
 # Get workspace
 ws = Workspace.from_config(auth=cli_auth)
 
-model = Model(ws, 'MyModel')
+model = Model(ws, 'CatsAndDogs')
 
 print(model.name)
 print(os.getcwd())
