@@ -68,7 +68,7 @@ class CatOrDogApi(Resource):
             urllib.request.urlretrieve(url, filename="tmp.jpg")
 
             image_data = cv2.imread("tmp.jpg", cv2.IMREAD_GRAYSCALE)
-            image_data = cv2.resize(image_data,(96,96))
+            image_data = cv2.resize(image_data,(128,128))
             image_data = image_data/255
 
             data1=[]
